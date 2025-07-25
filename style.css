@@ -1,32 +1,217 @@
-/* ご提示いただいた元のCSSをベースに、案件リスト用のスタイルを追加 */
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f9fafb; color: #374151; line-height: 1.6; margin: 0; padding: 1rem; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-.container { width: 100%; max-width: 700px; }
-.card { background: white; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); padding: 2rem; width: 100%; }
-.header { text-align: center; margin-bottom: 2rem; }
-.icon { width: 48px; height: 48px; background-color: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 24px; }
-.title { font-size: 1.5rem; font-weight: 700; color: #1f2937; }
-.subtitle { color: #6b7280; font-size: 0.875rem; }
-.refresh-btn { background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.875rem; margin-top: 0.5rem; }
+/* 全体をリセットし、モダンなフォントを設定 */
+:root {
+    --primary-color: #007aff;
+    --primary-hover-color: #005bb5;
+    --background-color: #f4f4f9;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --subtle-text-color: #6c757d;
+    --border-color: #e5e7eb;
+}
 
-.case-creation { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-.input { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; }
-.btn { padding: 0.75rem 1rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; }
-.btn-primary { background-color: #3b82f6; color: white; }
-.btn-primary:hover { background-color: #2563eb; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+}
 
-#case-list { margin-top: 1.5rem; }
-.case-item { border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; transition: all 0.3s; }
-.case-item.completed { background-color: #f9fafb; color: #9ca3af; border-style: dashed; }
-.case-item.completed .case-actions { display: none; }
-.case-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.case-name { font-size: 1.2rem; font-weight: 600; }
-.case-status { font-size: 0.8rem; padding: 0.25rem 0.75rem; border-radius: 999px; color: white; font-weight: 500; }
-.case-body { font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem; }
-.case-actions { display: flex; gap: 0.5rem; align-items: center; }
-.worker-input { flex-grow: 1; }
+.container {
+    width: 100%;
+    max-width: 800px; /* 横幅を少し広げて見やすく */
+}
 
-.auto-refresh { text-align: center; margin-top: 1.5rem; }
-.auto-refresh-text { font-size: 0.75rem; color: #9ca3af; }
+.card {
+    background: var(--card-background);
+    border-radius: 12px; /* 角を少し丸く */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08); /* より自然な影 */
+    padding: 2.5rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.icon {
+    width: 52px;
+    height: 52px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    color: white;
+    font-size: 26px;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.4);
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--subtle-text-color);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+}
+
+.refresh-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: color 0.2s;
+}
+
+.refresh-btn:hover {
+    color: var(--primary-hover-color);
+}
+
+.case-creation {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap; /* ボタン内のテキストが改行しないように */
+    transition: background-color 0.2s, transform 0.2s;
+}
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-hover-color);
+}
+
+
+#case-list {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* 案件間のスペース */
+}
+
+.case-item {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    background-color: var(--card-background);
+}
+
+.case-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+
+.case-item.completed {
+    background-color: #f9fafb;
+    color: var(--subtle-text-color);
+    border-style: solid;
+}
+.case-item.completed:hover {
+    transform: none;
+    box-shadow: none;
+}
+.case-item.completed .case-actions {
+    display: none;
+}
+
+
+.case-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.case-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.case-status {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    color: white;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0; /* ステータス名が長い時に縮まないように */
+}
+
+.case-body {
+    font-size: 0.9rem;
+    color: var(--subtle-text-color);
+    margin-bottom: 1.5rem;
+    padding-left: 2px;
+}
+
+.case-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.worker-input {
+    flex-grow: 1;
+}
+
+.auto-refresh {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.auto-refresh-text {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
 
 /* ステータスごとの色 */
 .status-作業待ち { background-color: #f59e0b; }

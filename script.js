@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        cases.forEach(c => {
-            const item = document.createElement('div');
+    cases.slice().reverse().forEach(c => {
+        const item = document.createElement('div');
             item.className = `case-item status-${c.status.replace(/\s/g, '-')}`;
             item.dataset.caseId = c.id;
 
