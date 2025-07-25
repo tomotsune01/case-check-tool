@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案件チェックツール</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="icon">📋</div>
+                <h1 class="title">案件チェックツール</h1>
+                <p class="subtitle">チームの案件進捗を管理</p>
+                 <button class="refresh-btn" id="refresh-btn">🔄 更新</button>
+            </div>
+            
+            <div class="case-creation">
+                <input type="text" id="new-case-name" class="input" placeholder="新しい案件名を入力">
+                <button id="add-case-button" class="btn btn-primary">案件作成</button>
+            </div>
+            
+            <div id="case-list">
+                </div>
+             <div class="auto-refresh">
+                <p class="auto-refresh-text">30秒ごとに自動更新されます</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
